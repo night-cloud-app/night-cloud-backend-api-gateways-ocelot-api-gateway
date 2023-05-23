@@ -1,0 +1,36 @@
+﻿{
+  "GlobalConfiguration": {},
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/gateway/register",
+      "UpstreamHttpMethod": ["Post"],
+      "DownstreamPathTemplate": "/api/register",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{
+        "Host": "host.docker.internal",
+        "Port": 5001
+      }]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/login",
+      "UpstreamHttpMethod": ["Post"],
+      "DownstreamPathTemplate": "/api/login",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{
+        "Host": "host.docker.internal",
+        "Port": 5001
+      }]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/refresh-token",
+      "UpstreamHttpMethod": ["Post"],
+      "DownstreamPathTemplate": "/api/refresh-token",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{
+        "Host": "host.docker.internal",
+        "Port": 5001
+      }]
+    }
+  ]
+  
+}
