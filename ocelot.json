@@ -9,7 +9,8 @@
       "DownstreamHostAndPorts": [{
         "Host": "host.docker.internal",
         "Port": 5001
-      }]
+      }],
+      "Protected": true
     },
     {
       "UpstreamPathTemplate": "/gateway/login",
