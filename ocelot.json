@@ -31,7 +31,17 @@
         "Host": "host.docker.internal",
         "Port": 5001
       }]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/test-audio",
+      "UpstreamHttpMethod": ["Post"],
+      "DownstreamPathTemplate": "/api/test-endpoint",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{
+        "Host": "host.docker.internal",
+        "Port": 5002
+      }],
+      "Protected": true
     }
   ]
-  
 }

@@ -41,9 +41,15 @@ public class AuthenticationMiddleware
                     request.Content = JsonContent.Create(accessToken);;
                     request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                     var response = await _httpClient.SendAsync(request);
+                    
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
-                        await _next(context);
+                        var user = await response.Content.ReadFromJsonAsync<ValidatedUser>();
+                        if (user is not null && user.UserId != Guid.Empty)
+                        {
+                            context.Request.Headers.Add("UserID", user.UserId.ToString());
+                            await _next(context);
+                        }
                     }
                 }
             }
