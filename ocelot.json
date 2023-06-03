@@ -33,9 +33,9 @@
       }]
     },
     {
-      "UpstreamPathTemplate": "/gateway/test-audio",
+      "UpstreamPathTemplate": "/gateway/upload-audio-file",
       "UpstreamHttpMethod": ["Post"],
-      "DownstreamPathTemplate": "/api/test-endpoint",
+      "DownstreamPathTemplate": "/api/upload-audio-file",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{
         "Host": "host.docker.internal",
