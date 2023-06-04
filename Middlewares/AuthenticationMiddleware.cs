@@ -49,6 +49,7 @@ public class AuthenticationMiddleware
                         {
                             context.Request.Headers.Add("UserID", user.UserId.ToString());
                             await _next(context);
+                            return;
                         }
                     }
                 }

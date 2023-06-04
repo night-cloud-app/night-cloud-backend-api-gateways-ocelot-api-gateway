@@ -9,8 +9,7 @@
       "DownstreamHostAndPorts": [{
         "Host": "host.docker.internal",
         "Port": 5001
-      }],
-      "Protected": true
+      }]
     },
     {
       "UpstreamPathTemplate": "/gateway/login",
@@ -33,9 +32,20 @@
       }]
     },
     {
-      "UpstreamPathTemplate": "/gateway/upload-audio-file",
+      "UpstreamPathTemplate": "/gateway/file/upload",
       "UpstreamHttpMethod": ["Post"],
-      "DownstreamPathTemplate": "/api/upload-audio-file",
+      "DownstreamPathTemplate": "/api/file/upload",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{
+        "Host": "host.docker.internal",
+        "Port": 5002
+      }],
+      "Protected": true
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/file/{id:guid}/download",
+      "UpstreamHttpMethod": ["Get"],
+      "DownstreamPathTemplate": "/api/file/{id:guid}/download",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{
         "Host": "host.docker.internal",
