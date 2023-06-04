@@ -52,6 +52,39 @@
         "Port": 5002
       }],
       "Protected": true
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/file/{id:guid}",
+      "UpstreamHttpMethod": ["Get"],
+      "DownstreamPathTemplate": "/api/file/{id:guid}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{
+        "Host": "host.docker.internal",
+        "Port": 5002
+      }],
+      "Protected": true
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/file",
+      "UpstreamHttpMethod": ["Get"],
+      "DownstreamPathTemplate": "/api/file",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{
+        "Host": "host.docker.internal",
+        "Port": 5002
+      }],
+      "Protected": true
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/file",
+      "UpstreamHttpMethod": ["Put"],
+      "DownstreamPathTemplate": "/api/file",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{
+        "Host": "host.docker.internal",
+        "Port": 5002
+      }],
+      "Protected": true
     }
   ]
 }
