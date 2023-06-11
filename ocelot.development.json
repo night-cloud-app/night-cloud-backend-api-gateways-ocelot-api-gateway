@@ -7,7 +7,7 @@
       "DownstreamPathTemplate": "/api/register",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{
-        "Host": "host.docker.internal",
+        "Host": "localhost",
         "Port": 5001
       }]
     },
@@ -17,7 +17,7 @@
       "DownstreamPathTemplate": "/api/login",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{
-        "Host": "host.docker.internal",
+        "Host": "localhost",
         "Port": 5001
       }]
     },
@@ -27,7 +27,7 @@
       "DownstreamPathTemplate": "/api/refresh-token",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{
-        "Host": "host.docker.internal",
+        "Host": "localhost",
         "Port": 5001
       }]
     },
@@ -37,7 +37,7 @@
       "DownstreamPathTemplate": "/api/file/upload",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{
-        "Host": "host.docker.internal",
+        "Host": "localhost",
         "Port": 5002
       }],
       "Protected": true
@@ -48,7 +48,7 @@
       "DownstreamPathTemplate": "/api/file/{id:guid}/download",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{
-        "Host": "host.docker.internal",
+        "Host": "localhost",
         "Port": 5002
       }],
       "Protected": true
@@ -59,7 +59,7 @@
       "DownstreamPathTemplate": "/api/file/{id:guid}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{
-        "Host": "host.docker.internal",
+        "Host": "localhost",
         "Port": 5002
       }],
       "Protected": true
@@ -70,7 +70,7 @@
       "DownstreamPathTemplate": "/api/file",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{
-        "Host": "host.docker.internal",
+        "Host": "localhost",
         "Port": 5002
       }],
       "Protected": true
@@ -81,7 +81,7 @@
       "DownstreamPathTemplate": "/api/file",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{
-        "Host": "host.docker.internal",
+        "Host": "localhost",
         "Port": 5002
       }],
       "Protected": true
@@ -92,7 +92,7 @@
       "DownstreamPathTemplate": "/api/file",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{
-        "Host": "host.docker.internal",
+        "Host": "localhost",
         "Port": 5002
       }],
       "Protected": true

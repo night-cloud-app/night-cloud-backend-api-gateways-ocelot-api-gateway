@@ -1,5 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Routing.Template;
+using Ocelot.Middleware;
 using OcelotApiGateway.DataTransferObjects;
 
 namespace OcelotApiGateway.Middlewares;
@@ -16,47 +18,49 @@ public class AuthenticationMiddleware
         _httpClient = new HttpClient();
         _configuration = configuration;
     }
-
     public async Task InvokeAsync(HttpContext context)
     {
         var protectedRoutes = GetProtectedRoutes();
-
+        
         var currentPath = context.Request.Path;
 
         if (protectedRoutes.Any(x => x.UpstreamPathTemplate == currentPath) == false)
         {
             await _next(context);
         }
-;        
-        var authorizationHeader = context.Request.Headers.Authorization.FirstOrDefault();
-        if (authorizationHeader is not null)
+        else
         {
-            if (AuthenticationHeaderValue.TryParse(authorizationHeader, out var headerValue))
+            var authorizationHeader = context.Request.Headers.Authorization.FirstOrDefault();
+            if (authorizationHeader is not null)
             {
-                var accessToken = headerValue.Parameter;
-                if (accessToken is not null)
+                if (AuthenticationHeaderValue.TryParse(authorizationHeader, out var headerValue))
                 {
-                    var path = _configuration["AuthenticationMicroservice:ValidateTokenPath"];
-                    using var request = new HttpRequestMessage(HttpMethod.Post, path);
-                    request.Content = JsonContent.Create(accessToken);;
-                    request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                    var response = await _httpClient.SendAsync(request);
-                    
-                    if (response.StatusCode == HttpStatusCode.OK)
+                    var accessToken = headerValue.Parameter;
+                    if (accessToken is not null)
                     {
-                        var user = await response.Content.ReadFromJsonAsync<ValidatedUser>();
-                        if (user is not null && user.UserId != Guid.Empty)
+                        var path = _configuration["AuthenticationMicroservice:ValidateTokenPath"];
+                        using var request = new HttpRequestMessage(HttpMethod.Post, path);
+                        request.Content = JsonContent.Create(accessToken);;
+                        request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                        var response = await _httpClient.SendAsync(request);
+                    
+                        if (response.StatusCode == HttpStatusCode.OK)
                         {
-                            context.Request.Headers.Add("UserID", user.UserId.ToString());
-                            await _next(context);
-                            return;
+                            var user = await response.Content.ReadFromJsonAsync<ValidatedUser>();
+                            if (user is not null && user.UserId != Guid.Empty)
+                            {
+                                context.Request.Headers.Add("UserID", user.UserId.ToString());
+                                await _next(context);
+                                return;
+                            }
                         }
                     }
                 }
-            }
             
+            }
+            context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            await context.Response.CompleteAsync();
         }
-        context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
     }
 
     private IEnumerable<OcelotPath> GetProtectedRoutes()

@@ -4,7 +4,15 @@ using OcelotApiGateway.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
+if (builder.Environment.IsDevelopment())
+{
+    builder.Configuration.AddJsonFile(
+        "ocelot.development.json", optional: false, reloadOnChange: true);
+}
+else
+{
+    builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
+}
 
 builder.Services.AddOcelot(builder.Configuration);
 
