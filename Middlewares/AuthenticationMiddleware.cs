@@ -11,16 +11,20 @@ public class AuthenticationMiddleware
     private readonly HttpClient _httpClient;
     private readonly IConfiguration _configuration;
     private readonly IRoutePatternHelper _routePatternHelper;
+    private readonly ILogger<AuthenticationMiddleware> _logger;
 
     public AuthenticationMiddleware(
         RequestDelegate next, 
         IConfiguration configuration,
-        IRoutePatternHelper routePatternHelper)
+        IRoutePatternHelper routePatternHelper,
+        ILogger<AuthenticationMiddleware> logger)
     {
+        _logger = logger;
         _next = next;
         _httpClient = new HttpClient();
         _configuration = configuration;
         _routePatternHelper = routePatternHelper;
+        _logger.LogInformation("Authentication middleware was invoked");
     }
     public async Task InvokeAsync(HttpContext context)
     {
@@ -40,10 +44,12 @@ public class AuthenticationMiddleware
         
         if (route is null || route.Protected == false)
         {
+            _logger.LogInformation($"{currentPath} is not protected");
             await _next(context);
             return;
         }
-
+        _logger.LogInformation($"{currentPath} is protected");
+        
         var authorizationHeader = context.Request.Headers.Authorization.FirstOrDefault();
         if (authorizationHeader is not null)
         {
@@ -57,21 +63,23 @@ public class AuthenticationMiddleware
                     request.Content = JsonContent.Create(accessToken);;
                     request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                     var response = await _httpClient.SendAsync(request);
-                
+                    
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         var user = await response.Content.ReadFromJsonAsync<ValidatedUser>();
                         if (user is not null && user.UserId != Guid.Empty)
                         {
                             context.Request.Headers.Add("UserID", user.UserId.ToString());
+                            _logger.LogInformation($"Access token is valid, user id: {user.UserId.ToString()}");
                             await _next(context);
                             return;
                         }
                     }
+                    _logger.LogInformation($"Access token is not valid");
                 }
             }
-        
         }
+        _logger.LogError("Authentication header does not exist");
         context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
         await context.Response.CompleteAsync();
     }
