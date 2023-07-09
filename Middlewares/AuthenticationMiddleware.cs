@@ -10,23 +10,20 @@ public class AuthenticationMiddleware
     private readonly RequestDelegate _next;
     private readonly HttpClient _httpClient;
     private readonly IConfiguration _configuration;
-    private readonly IRoutePatternHelper _routePatternHelper;
     private readonly ILogger<AuthenticationMiddleware> _logger;
 
     public AuthenticationMiddleware(
         RequestDelegate next, 
         IConfiguration configuration,
-        IRoutePatternHelper routePatternHelper,
         ILogger<AuthenticationMiddleware> logger)
     {
         _logger = logger;
         _next = next;
         _httpClient = new HttpClient();
         _configuration = configuration;
-        _routePatternHelper = routePatternHelper;
         _logger.LogInformation("Authentication middleware was invoked");
     }
-    public async Task InvokeAsync(HttpContext context)
+    public async Task InvokeAsync(HttpContext context, IRoutePatternHelper routePatternHelper)
     {
         var protectedRoutes = GetProtectedRoutes();
         var currentPath = context.Request.Path;
@@ -34,8 +31,8 @@ public class AuthenticationMiddleware
         OcelotPath? route = null;
         foreach (var protectedRoute in protectedRoutes)
         {
-            var values = _routePatternHelper.GetRouteValues(protectedRoute.UpstreamPathTemplate, currentPath);
-            var path = _routePatternHelper.SetRouteValuesIntoPattern(protectedRoute.UpstreamPathTemplate, values);
+            var values = routePatternHelper.GetRouteValues(protectedRoute.UpstreamPathTemplate, currentPath);
+            var path = routePatternHelper.SetRouteValuesIntoPattern(protectedRoute.UpstreamPathTemplate, values);
             if (path == currentPath)
             {
                 route = protectedRoute;
