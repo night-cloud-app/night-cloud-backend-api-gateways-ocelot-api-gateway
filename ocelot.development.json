@@ -96,6 +96,138 @@
         "Port": 5002
       }],
       "Protected": true
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/directory/{directoryId:guid}/file/{id:guid}",
+      "UpstreamHttpMethod": ["Get"],
+      "DownstreamPathTemplate": "/api/directory/{directoryId:guid}/file/{id:guid}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{
+        "Host": "localhost",
+        "Port": 5002
+      }],
+      "Protected": true
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/directory/{directoryId:guid}/file/{id:guid}/download",
+      "UpstreamHttpMethod": ["Get"],
+      "DownstreamPathTemplate": "/api/directory/{directoryId:guid}/file/{id:guid}/download",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{
+        "Host": "localhost",
+        "Port": 5002
+      }],
+      "Protected": true
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/directory/{directoryId:guid}/file",
+      "UpstreamHttpMethod": ["Get"],
+      "DownstreamPathTemplate": "/api/directory/{directoryId:guid}/file",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{
+        "Host": "localhost",
+        "Port": 5002
+      }],
+      "Protected": true
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/directory/{directoryId:guid}/file",
+      "UpstreamHttpMethod": ["Delete"],
+      "DownstreamPathTemplate": "/api/directory/{directoryId:guid}/file",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{
+        "Host": "localhost",
+        "Port": 5002
+      }],
+      "Protected": true
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/directory",
+      "UpstreamHttpMethod": ["Get"],
+      "DownstreamPathTemplate": "/api/directory",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{
+        "Host": "localhost",
+        "Port": 5002
+      }],
+      "Protected": true
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/directory",
+      "UpstreamHttpMethod": ["Post"],
+      "DownstreamPathTemplate": "/api/directory",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{
+        "Host": "localhost",
+        "Port": 5002
+      }],
+      "Protected": true
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/directory",
+      "UpstreamHttpMethod": ["Put"],
+      "DownstreamPathTemplate": "/api/directory",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{
+        "Host": "localhost",
+        "Port": 5002
+      }],
+      "Protected": true
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/directory/{id:guid}",
+      "UpstreamHttpMethod": ["Get"],
+      "DownstreamPathTemplate": "/api/directory/{id:guid}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{
+        "Host": "localhost",
+        "Port": 5002
+      }],
+      "Protected": true
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/directory/{id:guid}",
+      "UpstreamHttpMethod": ["Delete"],
+      "DownstreamPathTemplate": "/api/directory/{id:guid}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{
+        "Host": "localhost",
+        "Port": 5002
+      }],
+      "Protected": true
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/parent-directory/{parentId:guid}/directory",
+      "UpstreamHttpMethod": ["Get"],
+      "DownstreamPathTemplate": "/api/parent-directory/{parentId:guid}/directory",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{
+        "Host": "localhost",
+        "Port": 5002
+      }],
+      "Protected": true
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/parent-directory/{parentId:guid}/directory/{id:guid}",
+      "UpstreamHttpMethod": ["Get"],
+      "DownstreamPathTemplate": "/api/parent-directory/{parentId:guid}/directory/{id:guid}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{
+        "Host": "localhost",
+        "Port": 5002
+      }],
+      "Protected": true
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/parent-directory/{parentId:guid}/directory/{id:guid}",
+      "UpstreamHttpMethod": ["Delete"],
+      "DownstreamPathTemplate": "/api/parent-directory/{parentId:guid}/directory/{id:guid}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{
+        "Host": "localhost",
+        "Port": 5002
+      }],
+      "Protected": true
     }
   ]
 }

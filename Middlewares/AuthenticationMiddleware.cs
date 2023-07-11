@@ -66,7 +66,6 @@ public class AuthenticationMiddleware
                         var user = await response.Content.ReadFromJsonAsync<ValidatedUser>();
                         if (user is not null && user.UserId != Guid.Empty)
                         {
-                            context.Request.Headers.Add("UserID", user.UserId.ToString());
                             _logger.LogInformation($"Access token is valid, user id: {user.UserId.ToString()}");
                             await _next(context);
                             return;
