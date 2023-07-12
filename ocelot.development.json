@@ -180,8 +180,8 @@
       "DownstreamPathTemplate": "/api/directory/{id:guid}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{
-        "Host": "localhost",
-        "Port": 5002
+        "Host": "host.docker.internal",
+        "Port": 5048
       }],
       "Protected": true
     },
