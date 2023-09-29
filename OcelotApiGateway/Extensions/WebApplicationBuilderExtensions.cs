@@ -1,5 +1,5 @@
 ﻿using Ocelot.DependencyInjection;
-using Routes.Helpers;
+using NightCloud.Common.Routes.Helpers;
 using Serilog;
 
 namespace OcelotApiGateway.Extensions;

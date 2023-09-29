@@ -13,16 +13,14 @@
         <PackageReference Include="Ocelot" Version="19.0.2" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
         <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
+        
+        <PackageReference Include="NightCloud.Common.Routes" Version="1.0.2" />
     </ItemGroup>
 
     <ItemGroup>
       <Content Include="..\..\..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\..\Shared\Routes\Routes.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http.Headers;
 using OcelotApiGateway.DataTransferObjects;
-using Routes.Helpers;
+using NightCloud.Common.Routes.Helpers;
 
 namespace OcelotApiGateway.Middlewares;
 
