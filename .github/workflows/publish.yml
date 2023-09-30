@@ -25,7 +25,7 @@ jobs:
       - name: 'Build & Deploy API Gateway'
         uses: docker/build-push-action@v4
         with:
-          context: ./backend
-          file: ./backend/api-gateways/ocelot-api-gateway/src/Dockerfile
+          context: ./src
+          file: ./src/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_REGISTRY }}/${{ secrets.REGISTRY_USERNAME }}/ocelot-api-gateway
