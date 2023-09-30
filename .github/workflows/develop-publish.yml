@@ -28,4 +28,4 @@ jobs:
           context: ./
           file: ./src/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_REGISTRY }}/${{ secrets.REGISTRY_USERNAME }}/ocelot-api-gateway
+          tags: ${{ secrets.DOCKER_REGISTRY }}/${{ secrets.REGISTRY_USERNAME }}/develop/ocelot-api-gateway
