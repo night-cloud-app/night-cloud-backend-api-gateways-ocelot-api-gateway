@@ -11,6 +11,8 @@ public static class WebApplicationBuilderExtensions
         builder.Host.UseSerilog((context, configuration)
             => configuration.ReadFrom.Configuration(context.Configuration));
 
+        builder.BuildOcelotJson();
+        
         builder.Configuration.AddJsonFile(
             builder.Environment.IsDevelopment() ? "ocelot.development.json" : "ocelot.json", optional: false,
             reloadOnChange: true);
@@ -21,5 +23,12 @@ public static class WebApplicationBuilderExtensions
         builder.Services.AddSwaggerGen();
 
         return builder;
+    }
+
+    private static void BuildOcelotJson(this WebApplicationBuilder builder)
+    {
+        var ocelot = File.ReadAllText("ocelot.json");
+        var result = ocelot.Replace("{HOST}", builder.Configuration["Ocelot:Host"]);
+        File.WriteAllText("ocelot.json", result);
     }
 }
