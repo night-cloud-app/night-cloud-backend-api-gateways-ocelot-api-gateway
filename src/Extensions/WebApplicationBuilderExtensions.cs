@@ -11,12 +11,8 @@ public static class WebApplicationBuilderExtensions
         builder.Host.UseSerilog((context, configuration)
             => configuration.ReadFrom.Configuration(context.Configuration));
 
-        builder.BuildOcelotJson();
+        builder.ConfigureOcelot();
         
-        builder.Configuration.AddJsonFile(
-            builder.Environment.IsDevelopment() ? "ocelot.development.json" : "ocelot.json", optional: false,
-            reloadOnChange: true);
-
         builder.Services.AddOcelot(builder.Configuration);
         builder.Services.AddRoutePatternHelper();
         builder.Services.AddEndpointsApiExplorer();
@@ -25,10 +21,30 @@ public static class WebApplicationBuilderExtensions
         return builder;
     }
 
-    private static void BuildOcelotJson(this WebApplicationBuilder builder)
+    private static void ConfigureOcelot(this WebApplicationBuilder builder)
     {
-        var ocelot = File.ReadAllText("ocelot.json");
+        string ocelotPath;
+        
+        if (builder.Environment.IsProduction())
+        {
+            ocelotPath = "ocelot.json";
+            builder.BuildOcelotJson(ocelotPath);
+        }
+        else
+        {
+            ocelotPath = "ocelot.development.json";
+        }
+        
+        builder.Configuration.AddJsonFile(
+            ocelotPath, 
+            optional: false,
+            reloadOnChange: true);
+    }
+
+    private static void BuildOcelotJson(this WebApplicationBuilder builder, string ocelotPath)
+    {
+        var ocelot = File.ReadAllText(ocelotPath);
         var result = ocelot.Replace("{HOST}", builder.Configuration["Ocelot:Host"]);
-        File.WriteAllText("ocelot.json", result);
+        File.WriteAllText(ocelotPath, result);
     }
 }
